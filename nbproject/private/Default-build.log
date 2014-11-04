@@ -1,0 +1,229 @@
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/bridge.cpp -o build/bridge.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/comb.cpp -o build/comb.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/gcodeExport.cpp -o build/gcodeExport.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/infill.cpp -o build/infill.o
+src/infill.cpp: In function 'int cura::compare_int64_t(const void*, const void*)':
+src/infill.cpp:47:29: warning: use of old-style cast [-Wold-style-cast]
+     int64_t n = (*(int64_t*)a) - (*(int64_t*)b);
+                             ^
+src/infill.cpp:47:46: warning: use of old-style cast [-Wold-style-cast]
+     int64_t n = (*(int64_t*)a) - (*(int64_t*)b);
+                                              ^
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/inset.cpp -o build/inset.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/layerPart.cpp -o build/layerPart.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/main.cpp -o build/main.o
+In file included from src/main.cpp:35:0:
+src/fffProcessor.h: In member function 'bool cura::fffProcessor::prepareModel(cura::SliceDataStorage&, const std::vector<std::basic_string<char> >&)':
+src/fffProcessor.h:163:94: warning: use of old-style cast [-Wold-style-cast]
+             cura::log("  Face counts: %i -> %i %0.1f%%\n", (int)model->volumes[v].faces.size(), (int)optimizedModel->volumes[v].faces.size(), float(optimizedModel->volumes[v].faces.size()) / float(model->volumes[v].faces.size()) * 100);
+                                                                                              ^
+src/fffProcessor.h:163:140: warning: use of old-style cast [-Wold-style-cast]
+             cura::log("  Face counts: %i -> %i %0.1f%%\n", (int)model->volumes[v].faces.size(), (int)optimizedModel->volumes[v].faces.size(), float(optimizedModel->volumes[v].faces.size()) / float(model->volumes[v].faces.size()) * 100);
+                                                                                                                                            ^
+src/fffProcessor.h:164:96: warning: use of old-style cast [-Wold-style-cast]
+             cura::log("  Vertex counts: %i -> %i %0.1f%%\n", (int)model->volumes[v].faces.size() * 3, (int)optimizedModel->volumes[v].points.size(), float(optimizedModel->volumes[v].points.size()) / float(model->volumes[v].faces.size() * 3) * 100);
+                                                                                                ^
+src/fffProcessor.h:164:147: warning: use of old-style cast [-Wold-style-cast]
+             cura::log("  Vertex counts: %i -> %i %0.1f%%\n", (int)model->volumes[v].faces.size() * 3, (int)optimizedModel->volumes[v].points.size(), float(optimizedModel->volumes[v].points.size()) / float(model->volumes[v].faces.size() * 3) * 100);
+                                                                                                                                                   ^
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/optimizedModel.cpp -o build/optimizedModel.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/pathOrderOptimizer.cpp -o build/pathOrderOptimizer.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/polygonOptimizer.cpp -o build/polygonOptimizer.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/raft.cpp -o build/raft.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/settings.cpp -o build/settings.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/skin.cpp -o build/skin.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/skirt.cpp -o build/skirt.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/slicer.cpp -o build/slicer.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/support.cpp -o build/support.o
+src/support.cpp: In function 'int cura::cmp_SupportPoint(const void*, const void*)':
+src/support.cpp:15:28: warning: use of old-style cast [-Wold-style-cast]
+     return ((SupportPoint*)a)->z - ((SupportPoint*)b)->z;
+                            ^
+src/support.cpp:15:52: warning: use of old-style cast [-Wold-style-cast]
+     return ((SupportPoint*)a)->z - ((SupportPoint*)b)->z;
+                                                    ^
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/timeEstimate.cpp -o build/timeEstimate.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/modelFile/modelFile.cpp -o build/modelFile/modelFile.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/utils/gettime.cpp -o build/utils/gettime.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/utils/logoutput.cpp -o build/utils/logoutput.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto src/utils/socket.cpp -o build/utils/socket.o
+g++ -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"DEV\" -isystem libs -O3 -fomit-frame-pointer -march=pentium4 -flto -o build/libclipper.a libs/clipper/clipper.cpp
+In file included from libs/clipper/clipper.cpp:41:0:
+libs/clipper/clipper.hpp: In constructor 'ClipperLib::DoublePoint::DoublePoint(ClipperLib::IntPoint)':
+libs/clipper/clipper.hpp:115:43: warning: use of old-style cast [-Wold-style-cast]
+   DoublePoint(IntPoint ip) : X((double)ip.X), Y((double)ip.Y) {}
+                                           ^
+libs/clipper/clipper.hpp:115:60: warning: use of old-style cast [-Wold-style-cast]
+   DoublePoint(IntPoint ip) : X((double)ip.X), Y((double)ip.Y) {}
+                                                            ^
+libs/clipper/clipper.cpp: In member function 'int ClipperLib::PolyTree::Total() const':
+libs/clipper/clipper.cpp:173:29: warning: use of old-style cast [-Wold-style-cast]
+   return (int)AllNodes.size();
+                             ^
+libs/clipper/clipper.cpp: In member function 'int ClipperLib::PolyNode::ChildCount() const':
+libs/clipper/clipper.cpp:187:27: warning: use of old-style cast [-Wold-style-cast]
+   return (int)Childs.size();
+                           ^
+libs/clipper/clipper.cpp: In member function 'void ClipperLib::PolyNode::AddChild(ClipperLib::PolyNode&)':
+libs/clipper/clipper.cpp:193:40: warning: use of old-style cast [-Wold-style-cast]
+   unsigned cnt = (unsigned)Childs.size();
+                                        ^
+libs/clipper/clipper.cpp: In constructor 'ClipperLib::Int128::Int128(ClipperLib::cInt)':
+libs/clipper/clipper.cpp:258:19: warning: use of old-style cast [-Wold-style-cast]
+       lo = (cUInt)_lo;   
+                   ^
+libs/clipper/clipper.cpp: In member function 'ClipperLib::Int128& ClipperLib::Int128::operator=(const cInt&)':
+libs/clipper/clipper.cpp:269:21: warning: use of old-style cast [-Wold-style-cast]
+       lo = (ulong64)val;
+                     ^
+libs/clipper/clipper.cpp: In member function 'ClipperLib::Int128 ClipperLib::Int128::operator/(const ClipperLib::Int128&) const':
+libs/clipper/clipper.cpp:356:33: warning: use of old-style cast [-Wold-style-cast]
+               if ((cInt)divisor.lo < 0) divisor.hi++;
+                                 ^
+libs/clipper/clipper.cpp:360:30: warning: use of old-style cast [-Wold-style-cast]
+               if ((cInt)cntr.lo < 0) cntr.hi++;
+                              ^
+libs/clipper/clipper.cpp:366:41: warning: use of old-style cast [-Wold-style-cast]
+           divisor.hi = (ulong64)divisor.hi >> 1;
+                                         ^
+libs/clipper/clipper.cpp: In member function 'double ClipperLib::Int128::AsDouble() const':
+libs/clipper/clipper.cpp:406:38: warning: use of old-style cast [-Wold-style-cast]
+         if (lo_ == 0) return (double)hi * shift64;
+                                      ^
+libs/clipper/clipper.cpp:407:50: warning: use of old-style cast [-Wold-style-cast]
+         else return -(double)(lo_ + ~hi * shift64);
+                                                  ^
+libs/clipper/clipper.cpp:410:42: warning: use of old-style cast [-Wold-style-cast]
+         return (double)(lo + hi * shift64);
+                                          ^
+libs/clipper/clipper.cpp: In function 'double ClipperLib::Area(const Path&)':
+libs/clipper/clipper.cpp:455:29: warning: use of old-style cast [-Wold-style-cast]
+   int size = (int)poly.size();
+                             ^
+libs/clipper/clipper.cpp:461:27: warning: use of old-style cast [-Wold-style-cast]
+     a += ((double)poly[j].X + poly[i].X) * ((double)poly[j].Y - poly[i].Y);
+                           ^
+libs/clipper/clipper.cpp:461:61: warning: use of old-style cast [-Wold-style-cast]
+     a += ((double)poly[j].X + poly[i].X) * ((double)poly[j].Y - poly[i].Y);
+                                                             ^
+libs/clipper/clipper.cpp: In function 'double ClipperLib::Area(const ClipperLib::OutRec&)':
+libs/clipper/clipper.cpp:474:45: warning: use of old-style cast [-Wold-style-cast]
+     a +=  (double)(op->Prev->Pt.X + op->Pt.X) * (double)(op->Prev->Pt.Y - op->Pt.Y);
+                                             ^
+libs/clipper/clipper.cpp:474:83: warning: use of old-style cast [-Wold-style-cast]
+     a +=  (double)(op->Prev->Pt.X + op->Pt.X) * (double)(op->Prev->Pt.Y - op->Pt.Y);
+                                                                                   ^
+libs/clipper/clipper.cpp: In function 'int ClipperLib::PointInPolygon(const ClipperLib::IntPoint&, const Path&)':
+libs/clipper/clipper.cpp:517:42: warning: use of old-style cast [-Wold-style-cast]
+           double d = (double)(ip.X - pt.X) * (ipNext.Y - pt.Y) - 
+                                          ^
+libs/clipper/clipper.cpp:518:37: warning: use of old-style cast [-Wold-style-cast]
+             (double)(ipNext.X - pt.X) * (ip.Y - pt.Y);
+                                     ^
+libs/clipper/clipper.cpp:526:42: warning: use of old-style cast [-Wold-style-cast]
+           double d = (double)(ip.X - pt.X) * (ipNext.Y - pt.Y) - 
+                                          ^
+libs/clipper/clipper.cpp:527:37: warning: use of old-style cast [-Wold-style-cast]
+             (double)(ipNext.X - pt.X) * (ip.Y - pt.Y);
+                                     ^
+libs/clipper/clipper.cpp: In function 'int ClipperLib::PointInPolygon(const ClipperLib::IntPoint&, ClipperLib::OutPt*)':
+libs/clipper/clipper.cpp:559:46: warning: use of old-style cast [-Wold-style-cast]
+           double d = (double)(op->Pt.X - pt.X) * (op->Next->Pt.Y - pt.Y) - 
+                                              ^
+libs/clipper/clipper.cpp:560:43: warning: use of old-style cast [-Wold-style-cast]
+             (double)(op->Next->Pt.X - pt.X) * (op->Pt.Y - pt.Y);
+                                           ^
+libs/clipper/clipper.cpp:568:46: warning: use of old-style cast [-Wold-style-cast]
+           double d = (double)(op->Pt.X - pt.X) * (op->Next->Pt.Y - pt.Y) - 
+                                              ^
+libs/clipper/clipper.cpp:569:43: warning: use of old-style cast [-Wold-style-cast]
+             (double)(op->Next->Pt.X - pt.X) * (op->Pt.Y - pt.Y);
+                                           ^
+libs/clipper/clipper.cpp: In function 'double ClipperLib::GetDx(ClipperLib::IntPoint, ClipperLib::IntPoint)':
+libs/clipper/clipper.cpp:640:40: warning: use of old-style cast [-Wold-style-cast]
+     HORIZONTAL : (double)(pt2.X - pt1.X) / (pt2.Y - pt1.Y);
+                                        ^
+libs/clipper/clipper.cpp: In function 'void ClipperLib::SetDx(ClipperLib::TEdge&)':
+libs/clipper/clipper.cpp:650:33: warning: use of old-style cast [-Wold-style-cast]
+   else e.Dx = (double)(e.Delta.X) / e.Delta.Y;
+                                 ^
+libs/clipper/clipper.cpp: In member function 'bool ClipperLib::ClipperBase::AddPath(const Path&, ClipperLib::PolyType, bool)':
+libs/clipper/clipper.cpp:1148:28: warning: use of old-style cast [-Wold-style-cast]
+   int highI = (int)pg.size() -1;
+                            ^
+libs/clipper/clipper.cpp: In member function 'ClipperLib::OutRec* ClipperLib::Clipper::CreateOutRec()':
+libs/clipper/clipper.cpp:2492:38: warning: use of old-style cast [-Wold-style-cast]
+   result->Idx = (int)m_PolyOuts.size()-1;
+                                      ^
+libs/clipper/clipper.cpp: In function 'ClipperLib::DoublePoint ClipperLib::GetUnitNormal(const ClipperLib::IntPoint&, const ClipperLib::IntPoint&)':
+libs/clipper/clipper.cpp:3793:37: warning: use of old-style cast [-Wold-style-cast]
+   double Dx = (double)(pt2.X - pt1.X);
+                                     ^
+libs/clipper/clipper.cpp:3794:37: warning: use of old-style cast [-Wold-style-cast]
+   double dy = (double)(pt2.Y - pt1.Y);
+                                     ^
+libs/clipper/clipper.cpp: In member function 'void ClipperLib::ClipperOffset::AddPath(const Path&, ClipperLib::JoinType, ClipperLib::EndType)':
+libs/clipper/clipper.cpp:3830:30: warning: use of old-style cast [-Wold-style-cast]
+   int highI = (int)path.size() - 1;
+                              ^
+libs/clipper/clipper.cpp:3865:52: warning: use of old-style cast [-Wold-style-cast]
+     IntPoint ip = m_polyNodes.Childs[(int)m_lowest.X]->Contour[(int)m_lowest.Y];
+                                                    ^
+libs/clipper/clipper.cpp:3865:78: warning: use of old-style cast [-Wold-style-cast]
+     IntPoint ip = m_polyNodes.Childs[(int)m_lowest.X]->Contour[(int)m_lowest.Y];
+                                                                              ^
+libs/clipper/clipper.cpp: In member function 'void ClipperLib::ClipperOffset::FixOrientations()':
+libs/clipper/clipper.cpp:3886:51: warning: use of old-style cast [-Wold-style-cast]
+     !Orientation(m_polyNodes.Childs[(int)m_lowest.X]->Contour))
+                                                   ^
+libs/clipper/clipper.cpp: In member function 'void ClipperLib::ClipperOffset::DoOffset(double)':
+libs/clipper/clipper.cpp:4019:35: warning: use of old-style cast [-Wold-style-cast]
+     int len = (int)m_srcPoly.size();
+                                   ^
+libs/clipper/clipper.cpp:4100:16: warning: use of old-style cast [-Wold-style-cast]
+           delta), (cInt)Round(m_srcPoly[j].Y + m_normals[j].Y * delta));
+                ^
+libs/clipper/clipper.cpp:4100:70: warning: use of old-style cast [-Wold-style-cast]
+           delta), (cInt)Round(m_srcPoly[j].Y + m_normals[j].Y * delta));
+                                                                      ^
+libs/clipper/clipper.cpp:4103:16: warning: use of old-style cast [-Wold-style-cast]
+           delta), (cInt)Round(m_srcPoly[j].Y - m_normals[j].Y * delta));
+                ^
+libs/clipper/clipper.cpp:4103:70: warning: use of old-style cast [-Wold-style-cast]
+           delta), (cInt)Round(m_srcPoly[j].Y - m_normals[j].Y * delta));
+                                                                      ^
+libs/clipper/clipper.cpp:4128:75: warning: use of old-style cast [-Wold-style-cast]
+         pt1 = IntPoint((cInt)Round(m_srcPoly[0].X - m_normals[0].X * delta),
+                                                                           ^
+libs/clipper/clipper.cpp:4129:62: warning: use of old-style cast [-Wold-style-cast]
+           (cInt)Round(m_srcPoly[0].Y - m_normals[0].Y * delta));
+                                                              ^
+libs/clipper/clipper.cpp:4131:75: warning: use of old-style cast [-Wold-style-cast]
+         pt1 = IntPoint((cInt)Round(m_srcPoly[0].X + m_normals[0].X * delta),
+                                                                           ^
+libs/clipper/clipper.cpp:4132:62: warning: use of old-style cast [-Wold-style-cast]
+           (cInt)Round(m_srcPoly[0].Y + m_normals[0].Y * delta));
+                                                              ^
+libs/clipper/clipper.cpp: In member function 'void ClipperLib::ClipperOffset::DoRound(int, int)':
+libs/clipper/clipper.cpp:4207:54: warning: use of old-style cast [-Wold-style-cast]
+   int steps = (int)Round(m_StepsPerRad * std::fabs(a));
+                                                      ^
+libs/clipper/clipper.cpp: In function 'double ClipperLib::DistanceSqrd(const ClipperLib::IntPoint&, const ClipperLib::IntPoint&)':
+libs/clipper/clipper.cpp:4325:28: warning: use of old-style cast [-Wold-style-cast]
+   double Dx = ((double)pt1.X - pt2.X);
+                            ^
+libs/clipper/clipper.cpp:4326:28: warning: use of old-style cast [-Wold-style-cast]
+   double dy = ((double)pt1.Y - pt2.Y);
+                            ^
+libs/clipper/clipper.cpp: In function 'bool ClipperLib::PointsAreClose(ClipperLib::IntPoint, ClipperLib::IntPoint, double)':
+libs/clipper/clipper.cpp:4357:29: warning: use of old-style cast [-Wold-style-cast]
+     double Dx = (double)pt1.X - pt2.X;
+                             ^
+libs/clipper/clipper.cpp:4358:29: warning: use of old-style cast [-Wold-style-cast]
+     double dy = (double)pt1.Y - pt2.Y;
+                             ^
+libs/clipper/clipper.cpp: In function 'void ClipperLib::OffsetPaths(const Paths&, ClipperLib::Paths&, double, ClipperLib::JoinType, ClipperLib::EndType_, double)':
+libs/clipper/clipper.cpp:4602:44: warning: use of old-style cast [-Wold-style-cast]
+   co.AddPaths(in_polys, jointype, (EndType)endtype); 
+                                            ^
+g++ build/bridge.o build/comb.o build/gcodeExport.o build/infill.o build/inset.o build/layerPart.o build/main.o build/optimizedModel.o build/pathOrderOptimizer.o build/polygonOptimizer.o build/raft.o build/settings.o build/skin.o build/skirt.o build/slicer.o build/support.o build/timeEstimate.o build/modelFile/modelFile.o build/utils/gettime.o build/utils/logoutput.o build/utils/socket.o -o build/CuraEngine.exe -Lbuild/ -lclipper -Wl,--large-address-aware -lm -lwsock32 -flto
