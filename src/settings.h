@@ -122,6 +122,8 @@ public:
     int filamentFlow;
     int layer0extrusionWidth;
     int extrusionWidth;
+    int fillExtrusionWidth;
+    int supportExtrusionWidth;
     int insetCount;
     int downSkinCount;
     int upSkinCount;

@@ -21,6 +21,7 @@ GCodeExport::GCodeExport()
     extruderSwitchRetraction = 14.5;
     extruderNr = 0;
     currentFanSpeed = -1;
+    relativeExtrusionValue = 0;
     
     totalPrintTime = 0.0;
     for(unsigned int e=0; e<MAX_EXTRUDERS; e++)
@@ -258,6 +259,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
                 isRetracted = false;
             }
             extrusionAmount += extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff);
+            relativeExtrusionValue = extrusionPerMM * INT2MM(lineWidth) * vSizeMM(diff);
             fprintf(f, "G1");
         }else{
             fprintf(f, "G0");
@@ -273,7 +275,7 @@ void GCodeExport::writeMove(Point p, int speed, int lineWidth)
         if (zPos != currentPosition.z)
             fprintf(f, " Z%0.3f", INT2MM(zPos));
         if (lineWidth != 0)
-            fprintf(f, " %c%0.5f", extruderCharacter[extruderNr], extrusionAmount);
+            fprintf(f, " %c%0.5f", extruderCharacter[extruderNr], relativeExtrusionValue);
         fprintf(f, "\n");
     }
     

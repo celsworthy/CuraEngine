@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include "utils/socket.h"
+#include "settings.h"
 
 #define GUI_CMD_REQUEST_MESH 0x01
 #define GUI_CMD_SEND_POLYGONS 0x02
@@ -95,11 +96,11 @@ public:
 private:
     void preSetup()
     {
-        skirtConfig.setData(config.printSpeed, config.extrusionWidth, "SKIRT");
+        skirtConfig.setData(config.printSpeed, config.layer0extrusionWidth, "SKIRT");
         inset0Config.setData(config.inset0Speed, config.extrusionWidth, "WALL-OUTER");
         insetXConfig.setData(config.insetXSpeed, config.extrusionWidth, "WALL-INNER");
-        fillConfig.setData(config.infillSpeed, config.extrusionWidth, "FILL");
-        supportConfig.setData(config.printSpeed, config.extrusionWidth, "SUPPORT");
+        fillConfig.setData(config.infillSpeed, config.fillExtrusionWidth, "FILL");
+        supportConfig.setData(config.printSpeed, config.supportExtrusionWidth, "SUPPORT");
 
         for(unsigned int n=1; n<MAX_EXTRUDERS;n++)
             gcode.setExtruderOffset(n, config.extruderOffset[n].p());
@@ -441,15 +442,15 @@ private:
                 skirtConfig.setData(SPEED_SMOOTH(config.printSpeed), extrusionWidth, "SKIRT");
                 inset0Config.setData(SPEED_SMOOTH(config.inset0Speed), extrusionWidth, "WALL-OUTER");
                 insetXConfig.setData(SPEED_SMOOTH(config.insetXSpeed), extrusionWidth, "WALL-INNER");
-                fillConfig.setData(SPEED_SMOOTH(config.infillSpeed), extrusionWidth,  "FILL");
-                supportConfig.setData(SPEED_SMOOTH(config.printSpeed), extrusionWidth, "SUPPORT");
+                fillConfig.setData(SPEED_SMOOTH(config.infillSpeed), config.fillExtrusionWidth,  "FILL");
+                supportConfig.setData(SPEED_SMOOTH(config.printSpeed), config.supportExtrusionWidth, "SUPPORT");
 #undef SPEED_SMOOTH
             }else{
                 skirtConfig.setData(config.printSpeed, extrusionWidth, "SKIRT");
                 inset0Config.setData(config.inset0Speed, extrusionWidth, "WALL-OUTER");
                 insetXConfig.setData(config.insetXSpeed, extrusionWidth, "WALL-INNER");
-                fillConfig.setData(config.infillSpeed, extrusionWidth, "FILL");
-                supportConfig.setData(config.printSpeed, extrusionWidth, "SUPPORT");
+                fillConfig.setData(config.infillSpeed, config.fillExtrusionWidth, "FILL");
+                supportConfig.setData(config.printSpeed, config.supportExtrusionWidth, "SUPPORT");
             }
 
             gcode.writeComment("LAYER:%d", layerNr);
@@ -617,7 +618,7 @@ private:
             int fillAngle = 45;
             if (layerNr & 1)
                 fillAngle += 90;
-            int extrusionWidth = config.extrusionWidth;
+            int extrusionWidth = config.fillExtrusionWidth;
             if (layerNr == 0)
                 extrusionWidth = config.layer0extrusionWidth;
             for(Polygons outline : part->skinOutline.splitIntoParts())
@@ -697,8 +698,8 @@ private:
                 supportGenerator.polygons = supportGenerator.polygons.difference(layer->parts[n].outline.offset(config.supportXYDistance));
         }
         //Contract and expand the suppory polygons so small sections are removed and the final polygon is smoothed a bit.
-        supportGenerator.polygons = supportGenerator.polygons.offset(-config.extrusionWidth * 3);
-        supportGenerator.polygons = supportGenerator.polygons.offset(config.extrusionWidth * 3);
+        supportGenerator.polygons = supportGenerator.polygons.offset(-config.supportExtrusionWidth * 3);
+        supportGenerator.polygons = supportGenerator.polygons.offset(config.supportExtrusionWidth * 3);
         sendPolygonsToGui("support", layerNr, z, supportGenerator.polygons);
 
         vector<Polygons> supportIslands = supportGenerator.polygons.splitIntoParts();
@@ -720,21 +721,21 @@ private:
                 switch(config.supportType)
                 {
                 case SUPPORT_TYPE_GRID:
-                    if (config.supportLineDistance > config.extrusionWidth * 4)
+                    if (config.supportLineDistance > config.supportExtrusionWidth * 4)
                     {
-                        generateLineInfill(island, supportLines, config.extrusionWidth, config.supportLineDistance*2, config.infillOverlap, 0);
-                        generateLineInfill(island, supportLines, config.extrusionWidth, config.supportLineDistance*2, config.infillOverlap, 90);
+                        generateLineInfill(island, supportLines, config.supportExtrusionWidth, config.supportLineDistance*2, config.infillOverlap, 0);
+                        generateLineInfill(island, supportLines, config.supportExtrusionWidth, config.supportLineDistance*2, config.infillOverlap, 90);
                     }else{
-                        generateLineInfill(island, supportLines, config.extrusionWidth, config.supportLineDistance, config.infillOverlap, (layerNr & 1) ? 0 : 90);
+                        generateLineInfill(island, supportLines, config.supportExtrusionWidth, config.supportLineDistance, config.infillOverlap, (layerNr & 1) ? 0 : 90);
                     }
                     break;
                 case SUPPORT_TYPE_LINES:
                     if (layerNr == 0)
                     {
-                        generateLineInfill(island, supportLines, config.extrusionWidth, config.supportLineDistance, config.infillOverlap + 150, 0);
-                        generateLineInfill(island, supportLines, config.extrusionWidth, config.supportLineDistance, config.infillOverlap + 150, 90);
+                        generateLineInfill(island, supportLines, config.supportExtrusionWidth, config.supportLineDistance, config.infillOverlap + 150, 0);
+                        generateLineInfill(island, supportLines, config.supportExtrusionWidth, config.supportLineDistance, config.infillOverlap + 150, 90);
                     }else{
-                        generateLineInfill(island, supportLines, config.extrusionWidth, config.supportLineDistance, config.infillOverlap, 0);
+                        generateLineInfill(island, supportLines, config.supportExtrusionWidth, config.supportLineDistance, config.infillOverlap, 0);
                     }
                     break;
                 }
@@ -757,7 +758,7 @@ private:
         //If we changed extruder, print the wipe/prime tower for this nozzle;
         gcodeLayer.addPolygonsByOptimizer(storage.wipeTower, &supportConfig);
         Polygons fillPolygons;
-        generateLineInfill(storage.wipeTower, fillPolygons, config.extrusionWidth, config.extrusionWidth, config.infillOverlap, 45 + 90 * (layerNr % 2));
+        generateLineInfill(storage.wipeTower, fillPolygons, config.fillExtrusionWidth, config.fillExtrusionWidth, config.infillOverlap, 45 + 90 * (layerNr % 2));
         gcodeLayer.addPolygonsByOptimizer(fillPolygons, &supportConfig);
 
         //Make sure we wipe the old extruder on the wipe tower.
