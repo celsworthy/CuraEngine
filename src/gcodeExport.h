@@ -28,6 +28,7 @@ private:
     double minimalExtrusionBeforeRetraction;
     double extrusionAmountAtPreviousRetraction;
     Point3 currentPosition;
+    Point3 startPosition;
     Point extruderOffset[MAX_EXTRUDERS];
     char extruderCharacter[MAX_EXTRUDERS];
     int currentSpeed, retractionSpeed;
@@ -68,6 +69,10 @@ public:
     
     Point getPositionXY();
     
+    void resetStartPosition();
+
+    Point getStartPositionXY();
+
     int getPositionZ();
 
     int getExtruderNr();

@@ -11,7 +11,7 @@
 namespace cura {
 
     GCodeExport::GCodeExport()
-    : currentPosition(0, 0, 0) {
+    : currentPosition(0, 0, 0), startPosition(INT32_MIN, INT32_MIN, 0) {
         extrusionAmount = 0;
         extrusionPerMM = 0;
         retractionAmount = 4.5;
@@ -117,6 +117,15 @@ namespace cura {
         return Point(currentPosition.x, currentPosition.y);
     }
 
+    void GCodeExport::resetStartPosition() {
+        startPosition.x = INT32_MIN;
+        startPosition.y = INT32_MIN;
+    }
+
+    Point GCodeExport::getStartPositionXY() {
+        return Point(startPosition.x, startPosition.y);
+    }
+
     int GCodeExport::getPositionZ() {
         return currentPosition.z;
     }
@@ -145,7 +154,10 @@ namespace cura {
         va_start(args, comment);
         fprintf(f, ";");
         vfprintf(f, comment, args);
-        fprintf(f, "\n");
+        if (flavor == GCODE_FLAVOR_BFB)
+            fprintf(f, "\r\n");
+        else
+            fprintf(f, "\n");
         va_end(args);
     }
 
@@ -153,7 +165,10 @@ namespace cura {
         va_list args;
         va_start(args, line);
         vfprintf(f, line, args);
-        fprintf(f, "\n");
+        if (flavor == GCODE_FLAVOR_BFB)
+            fprintf(f, "\r\n");
+        else
+            fprintf(f, "\n");
         va_end(args);
     }
 
@@ -185,10 +200,10 @@ namespace cura {
                 if (isRetracted) {
                     if (currentSpeed != int(rpm * 10)) {
                         //fprintf(f, "; %f e-per-mm %d mm-width %d mm/s\n", extrusionPerMM, lineWidth, speed);
-                        fprintf(f, "M108 S%0.1f\n", rpm);
+                        fprintf(f, "M108 S%0.1f\r\n", rpm);
                         currentSpeed = int(rpm * 10);
                     }
-                    fprintf(f, "M%d01\n", extruderNr);
+                    fprintf(f, "M%d01\r\n", extruderNr + 1);
                     isRetracted = false;
                 }
                 //Fix the speed by the actual RPM we are asking, because of rounding errors we cannot get all RPM values, but we have a lot more resolution in the feedrate value.
@@ -201,11 +216,11 @@ namespace cura {
             } else {
                 //If we are not extruding, check if we still need to disable the extruder. This causes a retraction due to auto-retraction.
                 if (!isRetracted) {
-                    fprintf(f, "M103\n");
+                    fprintf(f, "M103\r\n");
                     isRetracted = true;
                 }
             }
-            fprintf(f, "G1 X%0.3f Y%0.3f Z%0.3f F%0.1f\n", INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), INT2MM(zPos), fspeed);
+            fprintf(f, "G1 X%0.3f Y%0.3f Z%0.3f F%0.1f\r\n", INT2MM(p.X - extruderOffset[extruderNr].X), INT2MM(p.Y - extruderOffset[extruderNr].Y), INT2MM(zPos), fspeed);
         } else {
 
             //Normal E handling.
@@ -242,11 +257,12 @@ namespace cura {
             if (zPos != currentPosition.z)
                 fprintf(f, " Z%0.3f", INT2MM(zPos));
             if (lineWidth != 0)
-                fprintf(f, " %c%0.5f", extruderCharacter[extruderNr], relativeExtrusionValue);
+                fprintf(f, " %c%0.5f", extruderCharacter[extruderNr], extrusionAmount);
             fprintf(f, "\n");
         }
 
         currentPosition = Point3(p.X, p.Y, zPos);
+        startPosition = currentPosition;
         estimateCalculator.plan(TimeEstimateCalculator::Position(INT2MM(currentPosition.x), INT2MM(currentPosition.y), INT2MM(currentPosition.z), extrusionAmount), speed);
     }
 
@@ -275,7 +291,7 @@ namespace cura {
             return;
         if (flavor == GCODE_FLAVOR_BFB) {
             if (!isRetracted)
-                fprintf(f, "M103\n");
+                fprintf(f, "M103\r\n");
             isRetracted = true;
             return;
         }
@@ -302,7 +318,11 @@ namespace cura {
     }
 
     void GCodeExport::writeCode(const char* str) {
-        fprintf(f, "%s\n", str);
+        fprintf(f, "%s", str);
+        if (flavor == GCODE_FLAVOR_BFB)
+            fprintf(f, "\r\n");
+        else
+            fprintf(f, "\n");
     }
 
     void GCodeExport::writeFanCommand(int speed) {
@@ -311,11 +331,15 @@ namespace cura {
         if (speed > 0) {
             if (flavor == GCODE_FLAVOR_MAKERBOT)
                 fprintf(f, "M126 T0 ; value = %d\n", speed * 255 / 100);
+            else if (flavor == GCODE_FLAVOR_MACH3)
+                fprintf(f, "M106 P%d\n", speed * 255 / 100);
             else
                 fprintf(f, "M106 S%d\n", speed * 255 / 100);
         } else {
             if (flavor == GCODE_FLAVOR_MAKERBOT)
                 fprintf(f, "M127 T0\n");
+            else if (flavor == GCODE_FLAVOR_MACH3)
+                fprintf(f, "M106 P%d\n", 0);
             else
                 fprintf(f, "M107\n");
         }
