@@ -549,8 +549,6 @@ namespace cura {
                 lastConfig = path->config;
             }
 
-            gcode.writeComment("Island:%d", n);
-
             int speed = path->config->speed;
 
             if (path->config->lineWidth != 0)// Only apply the extrudeSpeedFactor to extrusion moves
