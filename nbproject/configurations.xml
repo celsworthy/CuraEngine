@@ -1,39 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="." name="0">
-      <df name="libs">
-        <df name="clipper">
-          <in>clipper.cpp</in>
-        </df>
-      </df>
-      <df name="src">
-        <df name="modelFile">
-          <in>modelFile.cpp</in>
-        </df>
-        <df name="utils">
-          <in>gettime.cpp</in>
-          <in>logoutput.cpp</in>
-          <in>socket.cpp</in>
-        </df>
-        <in>bridge.cpp</in>
-        <in>comb.cpp</in>
-        <in>gcodeExport.cpp</in>
-        <in>infill.cpp</in>
-        <in>inset.cpp</in>
-        <in>layerPart.cpp</in>
-        <in>main.cpp</in>
-        <in>optimizedModel.cpp</in>
-        <in>pathOrderOptimizer.cpp</in>
-        <in>polygonOptimizer.cpp</in>
-        <in>raft.cpp</in>
-        <in>settings.cpp</in>
-        <in>skin.cpp</in>
-        <in>skirt.cpp</in>
-        <in>slicer.cpp</in>
-        <in>support.cpp</in>
-        <in>timeEstimate.cpp</in>
-      </df>
+    <df root="libs/clipper" name="0">
+      <in>clipper.cpp</in>
+      <in>clipper.hpp</in>
+    </df>
+    <df root="src" name="1">
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -44,7 +16,8 @@
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
   <sourceRootList>
-    <Elem>.</Elem>
+    <Elem>libs/clipper</Elem>
+    <Elem>src</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -73,49 +46,9 @@
           </ccTool>
         </makeTool>
       </makefileType>
-      <item path="libs/clipper/clipper.cpp" ex="false" tool="1" flavor2="8">
+      <item path="libs/clipper/clipper.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/bridge.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/comb.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/gcodeExport.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/infill.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/inset.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/layerPart.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/modelFile/modelFile.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/optimizedModel.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/pathOrderOptimizer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/polygonOptimizer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/raft.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/settings.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/skin.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/skirt.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/slicer.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/support.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/timeEstimate.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/utils/gettime.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/utils/logoutput.cpp" ex="false" tool="1" flavor2="8">
-      </item>
-      <item path="src/utils/socket.cpp" ex="false" tool="1" flavor2="8">
+      <item path="libs/clipper/clipper.hpp" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

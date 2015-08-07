@@ -257,7 +257,7 @@ namespace cura {
             if (zPos != currentPosition.z)
                 fprintf(f, " Z%0.3f", INT2MM(zPos));
             if (lineWidth != 0)
-                fprintf(f, " %c%0.5f", extruderCharacter[extruderNr], extrusionAmount);
+                fprintf(f, " %c%0.5f", extruderCharacter[extruderNr], relativeExtrusionValue);
             fprintf(f, "\n");
         }
 
@@ -274,8 +274,8 @@ namespace cura {
             if (flavor == GCODE_FLAVOR_ULTIGCODE || flavor == GCODE_FLAVOR_REPRAP_VOLUMATRIC) {
                 fprintf(f, "G10\n");
             } else {
-                fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], - retractionAmount);
-//                fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount - retractionAmount);
+                fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], -retractionAmount);
+                //                fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount - retractionAmount);
                 currentSpeed = retractionSpeed;
                 estimateCalculator.plan(TimeEstimateCalculator::Position(INT2MM(currentPosition.x), INT2MM(currentPosition.y), INT2MM(currentPosition.z), extrusionAmount - retractionAmount), currentSpeed);
             }
@@ -548,6 +548,9 @@ namespace cura {
                 gcode.writeComment("TYPE:%s", path->config->name);
                 lastConfig = path->config;
             }
+
+            gcode.writeComment("Island:%d", n);
+
             int speed = path->config->speed;
 
             if (path->config->lineWidth != 0)// Only apply the extrudeSpeedFactor to extrusion moves

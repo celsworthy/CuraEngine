@@ -1,76 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="." name="0">
-      <df name="build">
-        <df name="modelFile">
-        </df>
-        <df name="utils">
-        </df>
+    <df root="libs/clipper" name="0">
+      <in>clipper.cpp</in>
+      <in>clipper.hpp</in>
+    </df>
+    <df root="src" name="1">
+      <df name="modelFile">
+        <in>modelFile.cpp</in>
+        <in>modelFile.h</in>
       </df>
-      <df name="libs">
-        <df name="clipper">
-          <in>clipper.cpp</in>
-          <in>clipper.hpp</in>
-        </df>
+      <df name="utils">
+        <in>floatpoint.h</in>
+        <in>gettime.cpp</in>
+        <in>gettime.h</in>
+        <in>intpoint.h</in>
+        <in>logoutput.cpp</in>
+        <in>logoutput.h</in>
+        <in>polygon.h</in>
+        <in>polygondebug.h</in>
+        <in>socket.cpp</in>
+        <in>socket.h</in>
+        <in>string.h</in>
       </df>
-      <df name="src">
-        <df name="modelFile">
-          <in>modelFile.cpp</in>
-          <in>modelFile.h</in>
-        </df>
-        <df name="utils">
-          <in>floatpoint.h</in>
-          <in>gettime.cpp</in>
-          <in>gettime.h</in>
-          <in>intpoint.h</in>
-          <in>logoutput.cpp</in>
-          <in>logoutput.h</in>
-          <in>polygon.h</in>
-          <in>polygondebug.h</in>
-          <in>socket.cpp</in>
-          <in>socket.h</in>
-          <in>string.h</in>
-        </df>
-        <in>bridge.cpp</in>
-        <in>bridge.h</in>
-        <in>comb.cpp</in>
-        <in>comb.h</in>
-        <in>fffProcessor.h</in>
-        <in>gcodeExport.cpp</in>
-        <in>gcodeExport.h</in>
-        <in>infill.cpp</in>
-        <in>infill.h</in>
-        <in>inset.cpp</in>
-        <in>inset.h</in>
-        <in>layerPart.cpp</in>
-        <in>layerPart.h</in>
-        <in>main.cpp</in>
-        <in>multiVolumes.h</in>
-        <in>optimizedModel.cpp</in>
-        <in>optimizedModel.h</in>
-        <in>pathOrderOptimizer.cpp</in>
-        <in>pathOrderOptimizer.h</in>
-        <in>polygonOptimizer.cpp</in>
-        <in>polygonOptimizer.h</in>
-        <in>raft.cpp</in>
-        <in>raft.h</in>
-        <in>settings.cpp</in>
-        <in>settings.h</in>
-        <in>skin.cpp</in>
-        <in>skin.h</in>
-        <in>skirt.cpp</in>
-        <in>skirt.h</in>
-        <in>sliceDataStorage.h</in>
-        <in>slicer.cpp</in>
-        <in>slicer.h</in>
-        <in>support.cpp</in>
-        <in>support.h</in>
-        <in>timeEstimate.cpp</in>
-        <in>timeEstimate.h</in>
-      </df>
-      <df name="tests">
-      </df>
+      <in>bridge.cpp</in>
+      <in>bridge.h</in>
+      <in>comb.cpp</in>
+      <in>comb.h</in>
+      <in>fffProcessor.h</in>
+      <in>gcodeExport.cpp</in>
+      <in>gcodeExport.h</in>
+      <in>infill.cpp</in>
+      <in>infill.h</in>
+      <in>inset.cpp</in>
+      <in>inset.h</in>
+      <in>layerPart.cpp</in>
+      <in>layerPart.h</in>
+      <in>main.cpp</in>
+      <in>multiVolumes.h</in>
+      <in>optimizedModel.cpp</in>
+      <in>optimizedModel.h</in>
+      <in>pathOrderOptimizer.cpp</in>
+      <in>pathOrderOptimizer.h</in>
+      <in>polygonOptimizer.cpp</in>
+      <in>polygonOptimizer.h</in>
+      <in>raft.cpp</in>
+      <in>raft.h</in>
+      <in>settings.cpp</in>
+      <in>settings.h</in>
+      <in>skin.cpp</in>
+      <in>skin.h</in>
+      <in>skirt.cpp</in>
+      <in>skirt.h</in>
+      <in>sliceDataStorage.h</in>
+      <in>slicer.cpp</in>
+      <in>slicer.h</in>
+      <in>support.cpp</in>
+      <in>support.h</in>
+      <in>timeEstimate.cpp</in>
+      <in>timeEstimate.h</in>
     </df>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
