@@ -53,8 +53,6 @@ void createLayerParts(SliceVolumeStorage& storage, Slicer* slicer, int unionAllT
 {
     for(unsigned int layerNr = 0; layerNr < slicer->layers.size(); layerNr++)
     {
-                    cura::log("Generating layer parts for ...\n");
-
         storage.layers.push_back(SliceLayer());
         storage.layers[layerNr].sliceZ = slicer->layers[layerNr].z;
         storage.layers[layerNr].printZ = slicer->layers[layerNr].z;
