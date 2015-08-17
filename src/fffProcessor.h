@@ -91,11 +91,11 @@ namespace cura {
     private:
 
         void preSetup() {
-            skirtConfig.setData(config.printSpeed, config.layer0extrusionWidth, "SKIRT");
+            skirtConfig.setData(config.printSpeed, config.extrusionWidth, "SKIRT");
             inset0Config.setData(config.inset0Speed, config.extrusionWidth, "WALL-OUTER");
             insetXConfig.setData(config.insetXSpeed, config.extrusionWidth, "WALL-INNER");
             infillConfig.setData(config.infillSpeed, config.fillExtrusionWidth, "FILL");
-            skinConfig.setData(config.skinSpeed, config.extrusionWidth, "SKIN");
+            skinConfig.setData(config.skinSpeed, config.fillExtrusionWidth, "SKIN");
             supportConfig.setData(config.printSpeed, config.supportExtrusionWidth, "SUPPORT");
 
             for (unsigned int n = 1; n < MAX_EXTRUDERS; n++)
@@ -269,7 +269,7 @@ namespace cura {
                 if (!config.spiralizeMode || static_cast<int> (layerNr) < config.downSkinCount) //Only generate up/downskin and infill for the first X layers when spiralize is choosen.
                 {
                     for (unsigned int volumeIdx = 0; volumeIdx < storage.volumes.size(); volumeIdx++) {
-                        int extrusionWidth = config.extrusionWidth;
+                        int extrusionWidth = config.fillExtrusionWidth;
                         if (layerNr == 0)
                             extrusionWidth = config.layer0extrusionWidth;
                         generateSkins(layerNr, storage.volumes[volumeIdx], extrusionWidth, config.downSkinCount, config.upSkinCount, config.infillOverlap);
@@ -394,27 +394,46 @@ namespace cura {
             for (unsigned int layerNr = 0; layerNr < totalLayers; layerNr++) {
                 cura::logProgress("export", layerNr + 1, totalLayers);
 
-                int extrusionWidth = config.extrusionWidth;
-                if (layerNr == 0)
-                    extrusionWidth = config.layer0extrusionWidth;
+                //                int extrusionWidth = config.extrusionWidth;
+                //                if (layerNr == 0)
+                //                    extrusionWidth = config.layer0extrusionWidth;
                 if (static_cast<int> (layerNr) < config.initialSpeedupLayers) {
                     int n = config.initialSpeedupLayers;
 #define SPEED_SMOOTH(speed) \
                 std::min<int>((speed), (((speed)*layerNr)/n + (config.initialLayerSpeed*(n-layerNr)/n)))
-                    skirtConfig.setData(SPEED_SMOOTH(config.printSpeed), extrusionWidth, "SKIRT");
-                    inset0Config.setData(SPEED_SMOOTH(config.inset0Speed), extrusionWidth, "WALL-OUTER");
-                    insetXConfig.setData(SPEED_SMOOTH(config.insetXSpeed), extrusionWidth, "WALL-INNER");
-                    infillConfig.setData(SPEED_SMOOTH(config.infillSpeed), config.fillExtrusionWidth, "FILL");
-                    skinConfig.setData(SPEED_SMOOTH(config.skinSpeed), config.extrusionWidth, "SKIN");
-                    supportConfig.setData(SPEED_SMOOTH(config.printSpeed), config.supportExtrusionWidth, "SUPPORT");
+
+                    if (layerNr == 0) {
+                        skirtConfig.setData(SPEED_SMOOTH(config.printSpeed), config.layer0extrusionWidth, "SKIRT");
+                        inset0Config.setData(SPEED_SMOOTH(config.inset0Speed), config.layer0extrusionWidth, "WALL-OUTER");
+                        insetXConfig.setData(SPEED_SMOOTH(config.insetXSpeed), config.layer0extrusionWidth, "WALL-INNER");
+                        infillConfig.setData(SPEED_SMOOTH(config.infillSpeed), config.layer0extrusionWidth, "FILL");
+                        skinConfig.setData(SPEED_SMOOTH(config.skinSpeed), config.layer0extrusionWidth, "SKIN");
+                        supportConfig.setData(SPEED_SMOOTH(config.printSpeed), config.layer0extrusionWidth, "SUPPORT");
+                    } else {
+                        skirtConfig.setData(SPEED_SMOOTH(config.printSpeed), config.extrusionWidth, "SKIRT");
+                        inset0Config.setData(SPEED_SMOOTH(config.inset0Speed), config.extrusionWidth, "WALL-OUTER");
+                        insetXConfig.setData(SPEED_SMOOTH(config.insetXSpeed), config.extrusionWidth, "WALL-INNER");
+                        infillConfig.setData(SPEED_SMOOTH(config.infillSpeed), config.fillExtrusionWidth, "FILL");
+                        skinConfig.setData(SPEED_SMOOTH(config.skinSpeed), config.fillExtrusionWidth, "SKIN");
+                        supportConfig.setData(SPEED_SMOOTH(config.printSpeed), config.supportExtrusionWidth, "SUPPORT");
+                    }
 #undef SPEED_SMOOTH
                 } else {
-                    skirtConfig.setData(config.printSpeed, extrusionWidth, "SKIRT");
-                    inset0Config.setData(config.inset0Speed, extrusionWidth, "WALL-OUTER");
-                    insetXConfig.setData(config.insetXSpeed, extrusionWidth, "WALL-INNER");
-                    infillConfig.setData(config.infillSpeed, config.fillExtrusionWidth, "FILL");
-                    skinConfig.setData(config.skinSpeed, config.extrusionWidth, "SKIN");
-                    supportConfig.setData(config.printSpeed, config.supportExtrusionWidth, "SUPPORT");
+                    if (layerNr == 0) {
+                        skirtConfig.setData(config.printSpeed, config.layer0extrusionWidth, "SKIRT");
+                        inset0Config.setData(config.inset0Speed, config.layer0extrusionWidth, "WALL-OUTER");
+                        insetXConfig.setData(config.insetXSpeed, config.layer0extrusionWidth, "WALL-INNER");
+                        infillConfig.setData(config.infillSpeed, config.layer0extrusionWidth, "FILL");
+                        skinConfig.setData(config.skinSpeed, config.layer0extrusionWidth, "SKIN");
+                        supportConfig.setData(config.printSpeed, config.layer0extrusionWidth, "SUPPORT");
+                    } else {
+                        skirtConfig.setData(config.printSpeed, config.extrusionWidth, "SKIRT");
+                        inset0Config.setData(config.inset0Speed, config.extrusionWidth, "WALL-OUTER");
+                        insetXConfig.setData(config.insetXSpeed, config.extrusionWidth, "WALL-INNER");
+                        infillConfig.setData(config.infillSpeed, config.fillExtrusionWidth, "FILL");
+                        skinConfig.setData(config.skinSpeed, config.fillExtrusionWidth, "SKIN");
+                        supportConfig.setData(config.printSpeed, config.supportExtrusionWidth, "SUPPORT");
+                    }
                 }
 
                 gcode.writeComment("LAYER:%d", layerNr);
@@ -550,17 +569,18 @@ namespace cura {
                 int fillAngle = 45;
                 if (layerNr & 1)
                     fillAngle += 90;
+                // Danger Will Robinsion! - Is extrusion width used for perimeters here?
                 int extrusionWidth = config.fillExtrusionWidth;
                 if (layerNr == 0)
                     extrusionWidth = config.layer0extrusionWidth;
 
                 // Add either infill or perimeter first depending on option
                 if (!config.perimeterBeforeInfill) {
-                    addInfillToGCode(part, gcodeLayer, layerNr, config.fillExtrusionWidth, fillAngle);
+                    addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
                     addInsetToGCode(part, gcodeLayer, layerNr);
                 } else {
                     addInsetToGCode(part, gcodeLayer, layerNr);
-                    addInfillToGCode(part, gcodeLayer, layerNr, config.fillExtrusionWidth, fillAngle);
+                    addInfillToGCode(part, gcodeLayer, layerNr, extrusionWidth, fillAngle);
                 }
 
                 Polygons skinPolygons;
@@ -568,6 +588,8 @@ namespace cura {
                     int bridge = -1;
                     if (layerNr > 0)
                         bridge = bridgeAngle(outline, &storage.volumes[volumeIdx].layers[layerNr - 1]);
+                    cura::log("outputting skin on layer %d with ext width of actual %d layer0 %d peri %d\n", layerNr, extrusionWidth, config.layer0extrusionWidth, config.extrusionWidth);
+
                     generateLineInfill(outline, skinPolygons, extrusionWidth, extrusionWidth, config.infillOverlap, (bridge > -1) ? bridge : fillAngle);
                 }
                 if (config.enableCombing == COMBING_NOSKIN) {
@@ -713,7 +735,9 @@ namespace cura {
             //If we changed extruder, print the wipe/prime tower for this nozzle;
             gcodeLayer.addPolygonsByOptimizer(storage.wipeTower, &supportConfig);
             Polygons fillPolygons;
-            generateLineInfill(storage.wipeTower, fillPolygons, config.fillExtrusionWidth, config.fillExtrusionWidth, config.infillOverlap, 45 + 90 * (layerNr % 2));
+            
+            //Should this use standard extrusion width??
+            generateLineInfill(storage.wipeTower, fillPolygons, config.extrusionWidth, config.extrusionWidth, config.infillOverlap, 45 + 90 * (layerNr % 2));
             gcodeLayer.addPolygonsByOptimizer(fillPolygons, &supportConfig);
 
             //Make sure we wipe the old extruder on the wipe tower.
