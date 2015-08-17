@@ -11,6 +11,7 @@ BUILD_TYPE = RELEASE
 VERSION ?= "Robox 1.2"
 CXX ?= g++
 CFLAGS += -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"$(VERSION)\" -isystem libs
+#CFLAGS += -m32
 
 ifeq ($(BUILD_TYPE),DEBUG)
 	CFLAGS+=-ggdb -Og -g
@@ -23,6 +24,7 @@ ifeq ($(BUILD_TYPE),RELEASE)
 endif
 
 LDFLAGS += -Lbuild/ -lclipper
+#LDFLAGS += -m32
 
 SOURCES_RAW = bridge.cpp comb.cpp gcodeExport.cpp infill.cpp inset.cpp layerPart.cpp main.cpp optimizedModel.cpp pathOrderOptimizer.cpp polygonOptimizer.cpp raft.cpp settings.cpp skin.cpp skirt.cpp slicer.cpp support.cpp timeEstimate.cpp
 SOURCES_RAW += modelFile/modelFile.cpp utils/gettime.cpp utils/logoutput.cpp utils/socket.cpp
