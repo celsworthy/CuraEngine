@@ -300,7 +300,9 @@ namespace cura {
         if (flavor == GCODE_FLAVOR_ULTIGCODE || flavor == GCODE_FLAVOR_REPRAP_VOLUMATRIC) {
             fprintf(f, "G10 S1\n");
         } else {
-            fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount - extruderSwitchRetraction);
+            // Put in a fixed unretract to trigger the close process
+            fprintf(f, "G1 E-10");
+//            fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount - extruderSwitchRetraction);
             currentSpeed = retractionSpeed;
         }
         if (retractionZHop > 0)
