@@ -8,7 +8,7 @@ LIBS_DIR = libs
 
 BUILD_TYPE = RELEASE
 
-VERSION ?= "Robox 1.2"
+VERSION ?= "Robox 1.3"
 CXX ?= g++
 CFLAGS += -c -Wall -Wextra -Wold-style-cast -Woverloaded-virtual -std=c++11 -DVERSION=\"$(VERSION)\" -isystem libs
 #CFLAGS += -m32
