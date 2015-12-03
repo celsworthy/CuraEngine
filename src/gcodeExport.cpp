@@ -301,7 +301,7 @@ namespace cura {
             fprintf(f, "G10 S1\n");
         } else {
             // Put in a fixed unretract to trigger the close process
-            fprintf(f, "G1 E-10");
+            fprintf(f, "G1 E-1.0");
 //            fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount - extruderSwitchRetraction);
             currentSpeed = retractionSpeed;
         }
