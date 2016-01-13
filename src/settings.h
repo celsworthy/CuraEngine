@@ -88,7 +88,7 @@ enum GCode_Flavor
     GCODE_FLAVOR_REPRAP_VOLUMATRIC = 5,
 };
 
-#define MAX_EXTRUDERS 16
+#define MAX_EXTRUDERS 1000
 
 /**
  * Type of infill pattern.
