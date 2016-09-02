@@ -569,7 +569,7 @@ namespace cura {
                 int fillAngle = 45;
                 if (layerNr & 1)
                     fillAngle += 90;
-                // Danger Will Robinsion! - Is extrusion width used for perimeters here?
+                // Danger Will Robinson! - Is extrusion width used for perimeters here?
                 int extrusionWidth = config.fillExtrusionWidth;
                 if (layerNr == 0)
                     extrusionWidth = config.layer0extrusionWidth;

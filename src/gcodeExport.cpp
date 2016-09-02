@@ -296,13 +296,13 @@ namespace cura {
             return;
         }
 
-//        resetExtrusionValue();
+        //        resetExtrusionValue();
         if (flavor == GCODE_FLAVOR_ULTIGCODE || flavor == GCODE_FLAVOR_REPRAP_VOLUMATRIC) {
             fprintf(f, "G10 S1\n");
         } else {
             // Put in a fixed unretract to trigger the close process
             fprintf(f, "G1 E-1.0");
-//            fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount - extruderSwitchRetraction);
+            //            fprintf(f, "G1 F%i %c%0.5f\n", retractionSpeed * 60, extruderCharacter[extruderNr], extrusionAmount - extruderSwitchRetraction);
             currentSpeed = retractionSpeed;
         }
         if (retractionZHop > 0)
@@ -367,7 +367,8 @@ namespace cura {
     void GCodeExport::finalize(int maxObjectHeight, int moveSpeed, const char* endCode) {
         writeFanCommand(0);
         writeRetraction();
-        setZ(maxObjectHeight + 5000);
+        //Removed last move up
+        //        setZ(maxObjectHeight + 5000);
         writeMove(getPositionXY(), moveSpeed, 0);
         writeCode(endCode);
         cura::log("Print time: %d\n", int(getTotalPrintTime()));
